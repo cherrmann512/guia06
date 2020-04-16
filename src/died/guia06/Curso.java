@@ -31,6 +31,14 @@ public class Curso {
 		this.log = new Registro();
 	}
 	
+	
+	public Integer getCreditos() {
+		return creditos;
+	}
+	public Integer getCicloLectivo() {
+		return cicloLectivo;
+	}
+	
 
 	/**
 	 * Este método, verifica si el alumno se puede inscribir y si es así lo agrega al curso,
@@ -47,7 +55,12 @@ public class Curso {
 	 */
 	public Boolean inscribir(Alumno a) {
 		try {
-			log.registrar(this, "inscribir ",a.toString());
+			if(a.creditosObtenidos()>=this.creditosRequeridos && this.cupo>this.inscriptos.size() && a.cursosCicloLectivo(this.cicloLectivo)) {
+				this.inscriptos.add(a);
+				a.inscripcionAceptada(this);
+				log.registrar(this, "inscribir ",a.toString());
+				return true;
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
