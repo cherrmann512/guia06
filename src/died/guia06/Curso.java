@@ -32,6 +32,46 @@ public class Curso {
 	}
 	
 	
+	public Integer getCupo() {
+		return cupo;
+	}
+
+
+	public void setCupo(Integer cupo) {
+		this.cupo = cupo;
+	}
+
+
+	public void setCreditos(Integer creditos) {
+		this.creditos = creditos;
+	}
+
+
+	public List<Alumno> getInscriptos() {
+		return inscriptos;
+	}
+
+
+	public void setInscriptos(List<Alumno> inscriptos) {
+		this.inscriptos = inscriptos;
+	}
+
+
+	public Integer getCreditosRequeridos() {
+		return creditosRequeridos;
+	}
+
+
+	public void setCreditosRequeridos(Integer creditosRequeridos) {
+		this.creditosRequeridos = creditosRequeridos;
+	}
+
+
+	public void setCicloLectivo(Integer cicloLectivo) {
+		this.cicloLectivo = cicloLectivo;
+	}
+
+
 	public Integer getCreditos() {
 		return creditos;
 	}
@@ -55,7 +95,9 @@ public class Curso {
 	 */
 	public Boolean inscribir(Alumno a) {
 		try {
-			if(a.creditosObtenidos()>=this.creditosRequeridos && this.cupo>this.inscriptos.size() && a.cursosCicloLectivo(this.cicloLectivo)) {
+			if(a.creditosObtenidos()>=this.creditosRequeridos &&
+					(this.inscriptos == null || this.cupo>this.inscriptos.size()) && 
+					a.cursosCicloLectivo(this.cicloLectivo)) {
 				this.inscriptos.add(a);
 				a.inscripcionAceptada(this);
 				log.registrar(this, "inscribir ",a.toString());
