@@ -1,8 +1,11 @@
 package died.guia06;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import died.guia06.util.ComparadorCreditos;
+import died.guia06.util.ComparadorNroLibreta;
 import died.guia06.util.Registro;
 
 /**
@@ -31,7 +34,21 @@ public class Curso {
 		this.log = new Registro();
 	}
 	
-	
+
+	public Curso(Integer id, String nombre, Integer cicloLectivo, Integer cupo, List<Alumno> inscriptos,
+			Integer creditos, Integer creditosRequeridos) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.cicloLectivo = cicloLectivo;
+		this.cupo = cupo;
+		this.inscriptos = inscriptos;
+		this.creditos = creditos;
+		this.creditosRequeridos = creditosRequeridos;
+		this.log = new Registro();
+	}
+
+
 	public Integer getCupo() {
 		return cupo;
 	}
@@ -115,6 +132,38 @@ public class Curso {
 	 */
 	public void imprimirInscriptos() {
 		try {
+			Collections.sort(inscriptos);
+			for (Alumno a : inscriptos) {
+				System.out.println(a.toString());
+			}
+			log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	//imprime inscriptos ordenados por el numero de libreta
+	public void imprimirInscriptosNroLibreta() {
+		try {
+			ComparadorNroLibreta comparador = new ComparadorNroLibreta();
+			Collections.sort(inscriptos, comparador);
+			for (Alumno a : inscriptos) {
+				System.out.println(a.toString());
+			}
+			log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	
+	public void imprimirInscriptosCreditos() {
+		try {
+			ComparadorCreditos comparador = new ComparadorCreditos();
+			Collections.sort(inscriptos, comparador);
+			for (Alumno a : inscriptos) {
+				System.out.println(a.toString());
+			}
 			log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
 		} catch (Exception e) {
 			// TODO: handle exception

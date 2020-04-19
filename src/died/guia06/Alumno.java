@@ -26,6 +26,10 @@ public class Alumno implements Comparable<Alumno>{
 		this.aprobados = new ArrayList<Curso>();
 	}
 	
+	public Integer getNroLibreta() {
+		return nroLibreta;
+	}
+	
 	public List<Curso> getCursando() {
 		return cursando;
 	}
@@ -84,6 +88,11 @@ public class Alumno implements Comparable<Alumno>{
 		}if(aux>=3) {
 			return false;
 		}else return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "Nombre: " +nombre +" nro Libreta: "+nroLibreta;
 	}
 
 }
