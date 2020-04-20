@@ -1,5 +1,6 @@
 package died.guia06;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +9,7 @@ import died.guia06.util.ComparadorCreditos;
 import died.guia06.util.ComparadorNroLibreta;
 import died.guia06.util.InscripcionAnuladaException;
 import died.guia06.util.Registro;
+import died.guia06.util.RegistroAuditoriaException;
 
 /**
  * Clase que representa un curso. Un curso se identifica por su ID y por su nombre y ciclo lectivo.
@@ -175,10 +177,7 @@ public class Curso {
 	}
 	
 	public boolean inscribirAlumno (Alumno a) throws InscripcionAnuladaException{
-//		
-//		a.creditosObtenidos()>=this.creditosRequeridos &&
-//				(this.inscriptos == null || this.cupo>this.inscriptos.size()) && 
-//				a.cursosCicloLectivo(this.cicloLectivo))
+
 		if(a.creditosObtenidos()<this.creditosRequeridos) {
 			throw new InscripcionAnuladaException("No tiene los creditos suficientes para este curso");
 		}
@@ -192,14 +191,17 @@ public class Curso {
 			if(a.creditosObtenidos()>=this.creditosRequeridos &&
 				(this.inscriptos == null || this.cupo>this.inscriptos.size()) && 
 				a.cursosCicloLectivo(this.cicloLectivo))
-			System.out.println("imprimir esto");
 				this.inscriptos.add(a);
 				a.inscripcionAceptada(this);
-				log.registrar(this, "inscribir ",a.toString());
+				try {
+					log.registrar(this, "inscribir ",a.toString());
+				} catch (IOException e) {
+					throw new RegistroAuditoriaException();
+				}
 				return true;
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		return false;
 	}
