@@ -8,7 +8,7 @@ public class ComparadorNroLibreta implements Comparator<Alumno> {
 
 	@Override
 	public int compare(Alumno o1, Alumno o2) {
-		return o2.getNroLibreta()-o1.getNroLibreta();
+		return o1.getNroLibreta()-o2.getNroLibreta();
 	}
 
 }

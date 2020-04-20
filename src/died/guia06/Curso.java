@@ -133,6 +133,7 @@ public class Curso {
 	public void imprimirInscriptos() {
 		try {
 			Collections.sort(inscriptos);
+			System.out.println("Alumnos inscriptos en "+this.nombre);
 			for (Alumno a : inscriptos) {
 				System.out.println(a.toString());
 			}
@@ -147,6 +148,7 @@ public class Curso {
 		try {
 			ComparadorNroLibreta comparador = new ComparadorNroLibreta();
 			Collections.sort(inscriptos, comparador);
+			System.out.println("Alumnos inscriptos en "+this.nombre);
 			for (Alumno a : inscriptos) {
 				System.out.println(a.toString());
 			}
@@ -161,6 +163,7 @@ public class Curso {
 		try {
 			ComparadorCreditos comparador = new ComparadorCreditos();
 			Collections.sort(inscriptos, comparador);
+			System.out.println("Alumnos inscriptos en "+this.nombre);
 			for (Alumno a : inscriptos) {
 				System.out.println(a.toString());
 			}

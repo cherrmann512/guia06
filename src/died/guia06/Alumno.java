@@ -58,6 +58,7 @@ public class Alumno implements Comparable<Alumno>{
 		if(this.cursando.contains(c)) {
 			this.cursando.remove(c);
 			this.aprobados.add(c);
+			c.getInscriptos().remove(this);
 		}
 	}
 
@@ -92,7 +93,7 @@ public class Alumno implements Comparable<Alumno>{
 	
 	@Override
 	public String toString() {
-		return "Nombre: " +nombre +" nro Libreta: "+nroLibreta;
+		return "Nombre: " +nombre +", nro Libreta: "+nroLibreta + ", Creditos Obtenidos:" +this.creditosObtenidos();
 	}
 
 }
