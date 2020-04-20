@@ -6,6 +6,7 @@ import java.util.List;
 
 import died.guia06.util.ComparadorCreditos;
 import died.guia06.util.ComparadorNroLibreta;
+import died.guia06.util.InscripcionAnuladaException;
 import died.guia06.util.Registro;
 
 /**
@@ -143,7 +144,7 @@ public class Curso {
 		}
 	}
 	
-	//imprime inscriptos ordenados por el numero de libreta
+	//imprime inscriptos ordenados por el número de libreta de menor a mayor
 	public void imprimirInscriptosNroLibreta() {
 		try {
 			ComparadorNroLibreta comparador = new ComparadorNroLibreta();
@@ -158,7 +159,7 @@ public class Curso {
 		}
 	}
 	
-	
+	//imprime inscriptos ordenados por los créditos obtenidos de mayor a menor
 	public void imprimirInscriptosCreditos() {
 		try {
 			ComparadorCreditos comparador = new ComparadorCreditos();
@@ -171,6 +172,36 @@ public class Curso {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+	}
+	
+	public boolean inscribirAlumno (Alumno a) throws InscripcionAnuladaException{
+//		
+//		a.creditosObtenidos()>=this.creditosRequeridos &&
+//				(this.inscriptos == null || this.cupo>this.inscriptos.size()) && 
+//				a.cursosCicloLectivo(this.cicloLectivo))
+		if(a.creditosObtenidos()<this.creditosRequeridos) {
+			throw new InscripcionAnuladaException("No tiene los creditos suficientes para este curso");
+		}
+		if(this.inscriptos.size()==this.cupo) {
+			throw new InscripcionAnuladaException("No hay cupo para este curso");
+		}
+		if(!a.cursosCicloLectivo(this.cicloLectivo)) {
+			throw new InscripcionAnuladaException("no puede tomar mas cursos de este ciclo lectivo");
+		}
+		try {
+			if(a.creditosObtenidos()>=this.creditosRequeridos &&
+				(this.inscriptos == null || this.cupo>this.inscriptos.size()) && 
+				a.cursosCicloLectivo(this.cicloLectivo))
+			System.out.println("imprimir esto");
+				this.inscriptos.add(a);
+				a.inscripcionAceptada(this);
+				log.registrar(this, "inscribir ",a.toString());
+				return true;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
 	}
 
 

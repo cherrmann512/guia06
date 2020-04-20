@@ -2,9 +2,11 @@ package died.guia06;
 
 import java.util.ArrayList;
 
+import died.guia06.util.InscripcionAnuladaException;
+
 public class App {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InscripcionAnuladaException {
 		
 		//new Curso(id, nombre, cicloLectivo, cupo, inscriptos, creditos, creditosRequeridos)
 		Curso c1 = new Curso(1, "Algoritmos", 1, 5, new ArrayList<Alumno>(), 10, 0);
@@ -99,7 +101,8 @@ public class App {
 		
 		c10.inscribir(a1);
 		c10.imprimirInscriptos();
-
+		
+		
 		
 		
 		
