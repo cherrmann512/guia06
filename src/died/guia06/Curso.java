@@ -176,35 +176,57 @@ public class Curso {
 		}
 	}
 	
-	public boolean inscribirAlumno (Alumno a) throws InscripcionAnuladaException{
-
+	public boolean inscribirAlumno (Alumno a) throws InscripcionAnuladaException, RegistroAuditoriaException{
+		boolean b =false;
+		String mensaje = null;
 		if(a.creditosObtenidos()<this.creditosRequeridos) {
-			throw new InscripcionAnuladaException("No tiene los creditos suficientes para este curso");
+			mensaje = "no tiene creditos suficientes para este curso";
 		}
-		if(this.inscriptos.size()==this.cupo) {
-			throw new InscripcionAnuladaException("No hay cupo para este curso");
+		if(this.cupo==this.inscriptos.size()) {
+			mensaje = "no hay cupo para este curso";
 		}
 		if(!a.cursosCicloLectivo(this.cicloLectivo)) {
-			throw new InscripcionAnuladaException("no puede tomar mas cursos de este ciclo lectivo");
+			mensaje = "no puede inscribirse a cursos de este ciclo lectivo";
 		}
 		try {
 			if(a.creditosObtenidos()>=this.creditosRequeridos &&
-				(this.inscriptos == null || this.cupo>this.inscriptos.size()) && 
-				a.cursosCicloLectivo(this.cicloLectivo))
-				this.inscriptos.add(a);
-				a.inscripcionAceptada(this);
-				try {
+					(this.inscriptos == null || this.cupo>this.inscriptos.size()) && 
+					a.cursosCicloLectivo(this.cicloLectivo)) {
+				
+					this.inscriptos.add(a);
+					a.inscripcionAceptada(this);
 					log.registrar(this, "inscribir ",a.toString());
-				} catch (IOException e) {
-					throw new RegistroAuditoriaException();
-				}
-				return true;
-			
-		} catch (Exception e) {
-			
+					b=true;
+					} 
+		}catch (IOException e) {
+			throw new RegistroAuditoriaException();
+		}catch (Exception e) {
+			throw new InscripcionAnuladaException(mensaje);
 		}
-		return false;
+			return b;
 	}
+	
+//	public boolean inscribirAlumno (Alumno a) throws InscripcionAnuladaException, RegistroAuditoriaException{
+//		boolean b =false;
+//		try {
+//			if(a.creditosObtenidos()>=this.creditosRequeridos &&
+//					(this.inscriptos == null || this.cupo>this.inscriptos.size()) && 
+//					a.cursosCicloLectivo(this.cicloLectivo)) {
+//				
+//					this.inscriptos.add(a);
+//					a.inscripcionAceptada(this);
+//					log.registrar(this, "inscribir ",a.toString());
+//					b=true;
+//					} 
+//		}catch (IOException e) {
+//			throw new RegistroAuditoriaException();
+//		}
+//		catch (Exception e) {
+//			throw new RegistroAuditoriaException();
+//		}
+//			return b;
+//	}
+
 
 
 }

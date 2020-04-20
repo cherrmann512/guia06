@@ -5,8 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import died.guia06.util.InscripcionAnuladaException;
+import died.guia06.util.RegistroAuditoriaException;
 
 class CursoTest {
 	
@@ -71,16 +75,22 @@ class CursoTest {
 		a2.setCursando(curs);
 	}
 
+//	@Test
+//	void testInscripcionAlumno() {
+//		assertTrue(c5.inscribir(a1));
+//	}
+//	
+//	@Test
+//	void testInscripcionFallida() {
+//		assertFalse(c5.inscribir(a2));
+//	}
 	@Test
-	void testInscripcionAlumno() {
-		assertTrue(c5.inscribir(a1));
+	void testInscripcionAlumno() throws InscripcionAnuladaException, RegistroAuditoriaException {
+		assertTrue(c5.inscribirAlumno(a1));
 	}
-	
 	@Test
-	void testInscripcionFallida() {
-		assertFalse(c5.inscribir(a2));
+	void testInscripcionFallida() throws RegistroAuditoriaException, InscripcionAnuladaException {
+		assertFalse(c5.inscribirAlumno(a2));
 	}
-	
-	
 
 }
