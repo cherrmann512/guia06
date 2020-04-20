@@ -178,15 +178,14 @@ public class Curso {
 	
 	public boolean inscribirAlumno (Alumno a) throws InscripcionAnuladaException, RegistroAuditoriaException{
 		boolean b =false;
-		String mensaje = null;
 		if(a.creditosObtenidos()<this.creditosRequeridos) {
-			mensaje = "no tiene creditos suficientes para este curso";
+			throw new InscripcionAnuladaException("No tiene creditos suficientes"); 
 		}
 		if(this.cupo==this.inscriptos.size()) {
-			mensaje = "no hay cupo para este curso";
+			throw new InscripcionAnuladaException("no hay cupo para este curso");
 		}
 		if(!a.cursosCicloLectivo(this.cicloLectivo)) {
-			mensaje = "no puede inscribirse a cursos de este ciclo lectivo";
+			throw new InscripcionAnuladaException("no puede inscribirse a cursos de este ciclo lectivo");
 		}
 		try {
 			if(a.creditosObtenidos()>=this.creditosRequeridos &&
@@ -200,8 +199,6 @@ public class Curso {
 					} 
 		}catch (IOException e) {
 			throw new RegistroAuditoriaException();
-		}catch (Exception e) {
-			throw new InscripcionAnuladaException(mensaje);
 		}
 			return b;
 	}
